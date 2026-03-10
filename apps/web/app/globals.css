@@ -1,13 +1,23 @@
 @import "tailwindcss";
+@source "../../../packages/ui";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--canary-yellow);
+  --color-primary-dim: var(--canary-yellow-dim);
+  --color-urgent: var(--neon-pink);
+  --color-info: var(--electric-blue);
+  --color-success: var(--lime-green);
+  --color-warning: var(--bright-orange);
+  --color-muted-bg: var(--muted-bg);
+  --color-muted-fg: var(--muted-fg);
+  --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -22,5 +32,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
