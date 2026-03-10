@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/db"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  FACILITATOR
+  PARTICIPANT
+}
+
+enum ProjectGate {
+  PREP           @map("0_PREP")
+  INSPIRATION    @map("1_INSPIRATION")
+  IDEATION       @map("2_IDEATION")
+  IMPLEMENTATION @map("3_IMPLEMENTATION")
+}
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  role      Role     @default(PARTICIPANT)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  projects  Project[]
+}
+
+model Project {
+  id              String      @id @default(uuid()) @db.Uuid
+  name            String
+  facilitatorId   String      @map("facilitator_id") @db.Uuid
+  currentGate     ProjectGate @default(PREP) @map("current_gate")
+  currentPhase    Int         @default(0) @map("current_phase")
+  notionRootUrl   String?     @map("notion_root_url")
+  miroBoardId     String?     @map("miro_board_id")
+  createdAt       DateTime    @default(now()) @map("created_at")
+
+  facilitator     User        @relation(fields: [facilitatorId], references: [id])
+  sessions        Session[]
+}
+
+model Session {
+  id         String   @id @default(uuid()) @db.Uuid
+  projectId  String   @map("project_id") @db.Uuid
+  yjsRoomId  String   @map("yjs_room_id")
+  isActive   Boolean  @default(true) @map("is_active")
+
+  project    Project  @relation(fields: [projectId], references: [id])
+}

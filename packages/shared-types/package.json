@@ -1,0 +1,12 @@
+{
+  "name": "@dt-workbench/shared-types",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@prisma/client": "^5.10.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.10.0",
+    "typescript": "^5.0.0"
+  }
+}
