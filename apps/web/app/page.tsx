@@ -1,8 +1,24 @@
+import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
+import { LeftSidebar } from "@repo/ui/components/LeftSidebar";
+import { RightSidebar } from "@repo/ui/components/RightSidebar";
+import { MainViewport } from "@repo/ui/components/MainViewport";
+import { PromptOverlay } from "@repo/ui/components/PromptOverlay";
+import { Toast } from "@repo/ui/components/Toast";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">API Gateway Ready</h1>
-      <p className="mt-4 text-gray-500">Track 1 Foundation Deployed Successfully.</p>
-    </main>
+    <div className="flex flex-col h-screen text-foreground relative overflow-hidden">
+      {/* Main App Body */}
+      <div className="flex flex-1 overflow-hidden pb-16">
+        <LeftSidebar />
+        <MainViewport />
+        <RightSidebar />
+      </div>
+
+      {/* Global Overlays & Nav */}
+      <Breadcrumb />
+      <PromptOverlay />
+      <Toast />
+    </div>
   );
 }
