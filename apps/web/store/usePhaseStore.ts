@@ -28,6 +28,12 @@ interface PhaseState {
   // Mad-Libs Builder Modal
   isPromptOverlayOpen: boolean;
   setPromptOverlayOpen: (isOpen: boolean) => void;
+
+  // Layout Management
+  isLeftSidebarOpen: boolean;
+  toggleLeftSidebar: () => void;
+  isRightSidebarOpen: boolean;
+  toggleRightSidebar: () => void;
 }
 
 export const usePhaseStore = create<PhaseState>((set) => ({
@@ -51,5 +57,10 @@ export const usePhaseStore = create<PhaseState>((set) => ({
   removeToast: (id) => set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) })),
   
   isPromptOverlayOpen: false,
-  setPromptOverlayOpen: (isOpen) => set({ isPromptOverlayOpen: isOpen })
+  setPromptOverlayOpen: (isOpen) => set({ isPromptOverlayOpen: isOpen }),
+
+  isLeftSidebarOpen: true,
+  toggleLeftSidebar: () => set((state) => ({ isLeftSidebarOpen: !state.isLeftSidebarOpen })),
+  isRightSidebarOpen: true,
+  toggleRightSidebar: () => set((state) => ({ isRightSidebarOpen: !state.isRightSidebarOpen }))
 }));
