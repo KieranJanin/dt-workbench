@@ -13,6 +13,7 @@
     "@dt-workbench/shared-types": "*",
     "@google-cloud/vertexai": "^1.10.0",
     "neo4j-driver": "^6.0.1",
+    "@modelcontextprotocol/sdk": "^1.27.1",
     "next": "16.1.6",
     "next-themes": "^0.4.6",
     "react": "19.2.3",
@@ -22,6 +23,7 @@
     "yjs": "^13.6.29"
   },
   "devDependencies": {
+    "@mirohq/websdk-types": "^2.17.2",
     "@tailwindcss/postcss": "^4",
     "@types/jest": "^30.0.0",
     "@types/node": "^20",
