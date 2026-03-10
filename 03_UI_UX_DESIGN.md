@@ -1,37 +1,81 @@
-# UI/UX Design System & Wireframe Specifications
+# UI/UX Design System & Specifications (Iterative Draft 1)
 
 ## 1. Core Principles & Vibe
-*   **"Clinical but Creative"**: How we achieve the tone of the workbench.
-*   **Accessibility First**: WCAG 2.1 AA targets, contrast ratios, and keyboard navigation.
+*   **"Clinical but Creative"**: The workbench blends the rigid structure of enterprise software with the playful accessibility of physical design thinking workshops.
+*   **Theme Capabilities**: The platform must support both a **Light Theme** and a **Dark Theme** to accommodate varying user preferences during long workshops.
 
-## 2. Design Tokens
-### Topography
-*   **Primary Font**: [e.g. Inter/Roboto]
-*   **Secondary Font**: [e.g. Fira Code for technical details]
+## 2. Color Palette (The "3M Post-it" Aesthetic)
+*Note: Exact HEX values to be defined in subsequent iterations.*
+*   The primary accent colors for the UI (status indicators, tags, buttons) should be directly inspired by classic 3M Post-it notes:
+    *   **Canary Yellow** (Primary highlight)
+    *   **Neon Pink** (High-priority/Urgent)
+    *   **Electric Blue** (Information/Links)
+    *   **Lime Green** (Success/Validation)
+    *   **Bright Orange** (Warning/Contrarian AI interventions)
+*   **Backgrounds**: Clean, clinical whites/light-grays for Light Mode, and deep, low-contrast grays/charcoals for Dark Mode to make the Post-it colors pop.
 
-### Color Palette (Hex/RGB Definitions)
-*   **Primary Action**: [Link Blue / Branding Color]
-*   **Background / Canvas Base**: [Dark/Light mode bases]
-*   **Feedback Colors**: Success (Green), Warning (Yellow), Error (Red), Info (Blue).
+## 3. Layout Grid & Structure (The "Command Center" Model)
+The application utilizes a persistent, multi-pane layout designed to minimize context switching.
 
-## 3. Layout Grid & Structure
-*   Spacing and container sizing rules.
-*   Breakpoint definitions (Mobile, Tablet, Desktop, Ultra-wide).
+### 3.1 The Bottom Navigation Bar (The "Breadcrumb")
+*   **Position**: Anchored to the absolute bottom of the viewport.
+*   **Function**: Displays the Gate (0-3) and the 10 Phases of the Design Thinking methodology.
+*   **Visual State**:
+    *   *Locked Phases/Gates*: Displayed in muted **Grey** (unclickable).
+    *   *Active/Completed Phases*: Displayed in full **Color** (matching the 3M palette).
+*   **Purpose**: Provides immediate situational awareness to the entire team without needing to consult a project manual.
 
-## 4. Component Library (Atomic Design Approach)
-### Atoms
-*   Buttons, Inputs, Toggles, Avatars.
-### Molecules
-*   Sticky Notes, Timer Widgets, Comment Bubbles.
-### Organisms
-*   Toolbars, Right-side Panel (AI Chat), Canvas Container.
-### Templates/Pages
-*   Dashboard View, Workspace Canvas View, Administration Panel.
+### 3.2 The Left Sidebar (The "Artifact Library")
+*   **Position**: Fixed to the left side of the viewport.
+*   **Top Action (The Artifact Dashboard)**: At the very top of the left sidebar sits a permanent "Artifact Dashboard" button. Clicking this opens a cross-phase, tabular view tracking every artifact generated across all phases, complete with direct hyperlinks to their precise locations in Miro, Notion, or GDrive.
+    *   **The Audit Action**: From this Dashboard, Facilitators can trigger an "Audit" on a single artifact, an entire Phase, or a full Gate. Doing so prompts Domo to generate a entirely new Synthesis Artifact summarizing the findings, rather than altering the historical source files.
+*   **Visibility Logic**: Below the Dashboard button, the sidebar *only* shows folders and artifacts relevant to the **currently selected phase** (as selected in the Bottom Breadcrumb). It does not show all possible artifacts at all times.
+*   **Hierarchy**: Organized by the *Type* of Output (e.g., "Maps", "Empathy Reports", "Emails") pertinent to the active Phase.
+*   **Interaction (Floating Prompts)**: Clicking an artifact button (e.g., "Stakeholder Map") does *not* instantly generate it. Instead, it opens a **Floating Page / Modal Overlay**.
 
-## 5. Core Interaction Flows
-*   **Drag & Drop**: Mechanics of placing and clustering sticky notes.
-*   **Pan & Zoom**: Standardized control schematics (Scroll vs Space+Drag).
-*   **"Magical AI" Moments**: Micro-animations for AI clustering or data processing states.
+### 3.3 The Floating Prompt Overlay (The "Mad-Libs" Builder)
+*   **Function**: Contextual UX to help users craft the perfect prompt for Domo to generate the selected artifact.
+*   **Mechanic**: It utilizes a "Mad-Libs" style input form (e.g., *Draft a persona for `[Target Demographic Input Box]` using the data from `[Phase 2 Dropdown]`*). 
+*   **Action**: Clicking "Build Prompt" in this overlay does **not** execute the prompt. Instead, it injects the fully constructed string into the main Domo chat prompt window, allowing the user to review, augment, or tweak the text before manually sending it.
 
-## 6. Wireframe References
-*   [Link to Figma/FigJam files]
+### 3.4 The Main Viewport (Tabs)
+*   **Position**: The central, largest area of the screen.
+*   **Function**: Hosts the Tabbed Navigation (Domo Chat, Miro, Notion, GDocs, GCalendar, Gmail).
+*   **The "Domo-Tab"**: This is the default, primary chat interface where the user converses with the AI Reasoner.
+
+### 3.5 The Right Sidebar (Contextual AI & Standard Output)
+*   **Position**: Fixed to the right side of the viewport.
+*   **Visibility Logic**:
+    *   **Hidden** when the user is on the main "Domo-Tab" (since Domo is already taking up the main viewport).
+    *   **Visible** *only* when the user switches to an external tab (e.g., Miro, Notion, Gmail).
+*   **Function**: This sidebar is reserved strictly for the conversational, standard output of the LLM. It acts as the conversational interface while the user works in the external tab. *Crucially, it does not display the generated visual artifacts themselves.*
+
+### 3.6 The Miro `dt.workbench` App (Artifact Representation)
+*   **Function**: When working within the Miro tab, artifacts generated by Domo do not pollute the Right Sidebar chat. Instead, they are routed to the discrete `dt.workbench` companion application inside the Miro UI.
+*   **Visual Representation**: In the Miro app sidebar, generated artifacts appear as explicitly versioned text (e.g., `Stakeholder_Map_v1.2`) next to a function-specific emoji (e.g., 🗺️ for maps, 👤 for personas, 💡 for ideation clusters), ready for the user to drag and drop into the canvas space.
+
+## 4. Specific Component Architectures
+
+### 4.1 The Domo Chat Output & Data Visualization
+*   **Form**: The chat is conversational by default, but complex AI outputs require structured rendering.
+*   **Mini-Graphs**: When Domo references topological or semantic relationships (e.g., "I found 3 similar insights"), the chat bubble natively renders a localized "Mini-Graph" UI component showing nodes and edges.
+*   **Contextual Highlighting & Linking**: Inside the mini-graph or accompanying text, the specific conversational text that shares semantic meaning is highlighted. Clicking these highlights or nodes acts as a direct hyperlink, opening the source entry in the Notion tab (as all base transcriptions reside in Notion).
+
+### 4.2 The Companion App Mobile UX
+*   **Function**: Mobile-optimized field ingestion.
+*   **Visual Theme ("Field Operations")**: The app features a distinct "Field tools" look with higher contrast typography and larger tap targets designed for outdoor/on-the-go usage. Crucially, it strictly inherits the same **3M Post-it color scheme** (Canary Yellow, Neon Pink, Electric Blue) to maintain the unified artistic direction of the core web app.
+*   **Interaction Model (Audio-First)**: The primary UX is a massive, immediate "Record Observation" / "Record Interview" mechanical button. The user is *not* gated by metadata forms. They can instantly start recording audio in the field, and are prompted to fill out the standard Persona Form (Name, Age, Location) *during* or *after* the recording process asynchronously.
+
+### 4.3 Domo's Visual Persona & Voice
+*   **Visual Avatar**: Domo is represented visually in the UI by a stylized, minimalist ghost icon with a glowing lightbulb above its head (referencing the official project logo). The following 9-pane matrix dictates Domo's visual state during interactions (Thinking, Writing, Waiting, Fetching, Surprised, Devil, Angel, Tired, Welcoming):
+    
+    ![Domo Avatar States - 3x3 Grid](C:/Users/kiera/.gemini/antigravity/brain/cb69a423-7985-40f4-af80-3a92b07ff6bc/domo_avatar_states_1773109353188.png)
+
+*   **Conversational Tone**: Domo's voice is structurally consistent regardless of the user's prompting style. The tone is **"slightly conversational but firm."** It does not act subservient; it acts as a decisive orchestration partner (e.g., *"I'm looking at the Empathy Map, and I have to challenge this assumption..."*).
+
+### 4.4 The Notification System (Background Processes)
+*   **Mechanic**: When Domo executes long-running background tasks (like generating an extensive Miro board or a Notion Document via MCP), the UI strictly avoids intrusive auto-tab-switching.
+*   **UI Component**: Success or warnings are delivered via subtle **Toast Notifications** in the bottom corner of the viewport. These toasts act as hyperlinks, allowing the user to click them to jump to the relevant tab only when they are ready to break their current context.
+
+---
+*Iterative Draft - Pending User Review*
