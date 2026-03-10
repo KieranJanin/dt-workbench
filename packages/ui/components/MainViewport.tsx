@@ -2,6 +2,7 @@
 
 import { usePhaseStore, TabType } from "../../../apps/web/store/usePhaseStore";
 import { cn } from "../utils";
+import { ThemeToggle } from "./ThemeToggle";
 
 const TABS: TabType[] = ["Domo", "Miro", "Notion", "GDocs", "GCalendar", "Gmail"];
 
@@ -11,21 +12,26 @@ export function MainViewport() {
   return (
     <div className="flex-1 flex flex-col h-[calc(100vh-4rem)] bg-background">
       {/* Tabs Header */}
-      <div className="flex items-center space-x-1 px-2 border-b border-border bg-muted-bg pt-2 h-12">
-        {TABS.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={cn(
-              "px-4 py-2 text-sm font-semibold rounded-t-md transition-colors h-full",
-              activeTab === tab
-                ? "bg-background text-foreground border-x border-t border-border"
-                : "bg-transparent text-muted-fg hover:text-foreground border border-transparent hover:bg-black/5 dark:hover:bg-white/5"
-            )}
-          >
-            {tab}
-          </button>
-        ))}
+      <div className="flex items-center justify-between px-2 border-b border-border bg-muted-bg pt-2 h-12">
+        <div className="flex items-center space-x-1 h-full">
+          {TABS.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={cn(
+                "px-4 py-2 text-sm font-semibold rounded-t-md transition-colors h-full",
+                activeTab === tab
+                  ? "bg-background text-foreground border-x border-t border-border"
+                  : "bg-transparent text-muted-fg hover:text-foreground border border-transparent hover:bg-black/5 dark:hover:bg-white/5"
+              )}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center pb-2 pr-2">
+          <ThemeToggle />
+        </div>
       </div>
 
       {/* Viewport Content */}

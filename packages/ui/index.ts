@@ -4,4 +4,6 @@ export * from "./components/RightSidebar";
 export * from "./components/MainViewport";
 export * from "./components/PromptOverlay";
 export * from "./components/Toast";
+export * from "./components/ThemeProvider";
+export * from "./components/ThemeToggle";
 export * from "./utils";
