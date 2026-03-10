@@ -9,23 +9,25 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@repo/ui": "^0.0.0",
     "@dt-workbench/shared-types": "*",
-    "@google-cloud/vertexai": "^1.10.0",
-    "neo4j-driver": "^6.0.1",
-    "@modelcontextprotocol/sdk": "^1.27.1",
     "@genkit-ai/ai": "^1.29.0",
     "@genkit-ai/core": "^1.29.0",
     "@genkit-ai/googleai": "^1.28.0",
+    "@google-cloud/vertexai": "^1.10.0",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "@repo/ui": "^0.0.0",
     "framer-motion": "^12.35.2",
     "lucide-react": "^0.577.0",
+    "neo4j-driver": "^6.0.1",
     "next": "16.1.6",
     "next-themes": "^0.4.6",
+    "postcss": "^8.5.8",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "y-webrtc": "^10.3.0",
     "y-websocket": "^3.0.0",
-    "yjs": "^13.6.29"
+    "yjs": "^13.6.29",
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@mirohq/websdk-types": "^2.17.2",

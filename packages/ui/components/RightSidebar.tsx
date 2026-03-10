@@ -11,7 +11,7 @@ export function RightSidebar() {
 
   return (
     <div className={cn(
-      "border-l border-border h-[calc(100vh-4rem)] bg-muted-bg flex flex-col transition-all duration-300 relative",
+      "border-l border-border h-full bg-muted-bg flex flex-col transition-all duration-300 relative",
       isRightSidebarOpen ? "w-80" : "w-16"
     )}>
       <div className={cn(

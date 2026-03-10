@@ -26,8 +26,8 @@ interface PhaseState {
   removeToast: (id: string) => void;
   
   // Mad-Libs Builder Modal
-  isPromptOverlayOpen: boolean;
-  setPromptOverlayOpen: (isOpen: boolean) => void;
+  activePromptArtifact: string | null;
+  setPromptOverlayOpen: (artifactName: string | null) => void;
 
   // Layout Management
   isLeftSidebarOpen: boolean;
@@ -37,10 +37,10 @@ interface PhaseState {
 }
 
 export const usePhaseStore = create<PhaseState>((set) => ({
-  activePhase: 1,
-  unlockedPhases: [1, 2, 3], // Unlock first few for testing
+  activePhase: 0,
+  unlockedPhases: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // Unlock all for testing
   setActivePhase: (phase) => set((state) => ({ 
-    activePhase: state.unlockedPhases.includes(phase) ? phase : state.activePhase 
+    activePhase: state.unlockedPhases.includes(phase) || phase === 0 ? phase : state.activePhase 
   })),
   unlockPhase: (phase) => set((state) => ({
     unlockedPhases: state.unlockedPhases.includes(phase) ? state.unlockedPhases : [...state.unlockedPhases, phase]
@@ -56,8 +56,8 @@ export const usePhaseStore = create<PhaseState>((set) => ({
   }),
   removeToast: (id) => set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) })),
   
-  isPromptOverlayOpen: false,
-  setPromptOverlayOpen: (isOpen) => set({ isPromptOverlayOpen: isOpen }),
+  activePromptArtifact: null,
+  setPromptOverlayOpen: (artifactName) => set({ activePromptArtifact: artifactName }),
 
   isLeftSidebarOpen: true,
   toggleLeftSidebar: () => set((state) => ({ isLeftSidebarOpen: !state.isLeftSidebarOpen })),

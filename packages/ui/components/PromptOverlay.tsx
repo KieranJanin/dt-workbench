@@ -5,21 +5,20 @@ import { usePhaseStore } from "../../../apps/web/store/usePhaseStore";
 import { X, Wand2 } from "lucide-react";
 
 export function PromptOverlay() {
-  const { isPromptOverlayOpen, setPromptOverlayOpen, addToast } = usePhaseStore();
+  const { activePromptArtifact, setPromptOverlayOpen, addToast, activePhase } = usePhaseStore();
   const [demographic, setDemographic] = useState("");
-  const [dataSource, setDataSource] = useState("Phase 1 Transcripts");
+  const [dataSource, setDataSource] = useState(`Phase ${Math.max(0, activePhase - 1)} Context`);
 
-  if (!isPromptOverlayOpen) return null;
+  if (!activePromptArtifact) return null;
 
   const handleBuildPrompt = () => {
     // In the real app, this would inject text into the chat.
-    // We'll mimic this with a toast and closing the overlay.
     addToast({
-      title: "Prompt Built",
-      description: `Drafting persona for ${demographic || '[Missing]'} using ${dataSource}`,
+      title: "Prompt Sent to Domo",
+      description: `Requested generation of ${activePromptArtifact}`,
       type: "success"
     });
-    setPromptOverlayOpen(false);
+    setPromptOverlayOpen(null);
   };
 
   return (
@@ -31,7 +30,7 @@ export function PromptOverlay() {
             <h2 className="font-bold text-lg">Build Artifact Prompt</h2>
           </div>
           <button 
-            onClick={() => setPromptOverlayOpen(false)}
+            onClick={() => setPromptOverlayOpen(null)}
             className="p-1 hover:bg-black/10 rounded-full transition-colors"
           >
             <X size={20} />
@@ -39,25 +38,32 @@ export function PromptOverlay() {
         </div>
 
         <div className="p-6 space-y-6">
-          <div className="bg-primary-dim p-4 rounded-lg border border-primary text-sm font-mono leading-relaxed">
-            Draft a <strong className="text-urgent">User Persona</strong> for 
+          <div className="text-sm text-muted-fg bg-muted-bg p-3 border border-border rounded-md">
+            You are drafting a generative AI prompt for <strong className="text-foreground">{activePromptArtifact}</strong>. Fill in the missing context parameters below.
+          </div>
+          <div className="bg-primary-dim p-4 rounded-lg border border-primary text-[15px] font-mono leading-relaxed shadow-sm">
+            <span className="opacity-70">@Domo, please synthesize a new </span>
+            <strong className="text-urgent">{activePromptArtifact}</strong>
+            <span className="opacity-70"> focusing primarily on </span>
             <input 
               type="text" 
-              placeholder="[Target Demographic]"
+              placeholder="[Target Focus / Demographic]"
               value={demographic}
               onChange={(e) => setDemographic(e.target.value)}
-              className="mx-2 bg-transparent border-b-2 border-urgent focus:outline-none focus:border-black dark:focus:border-white px-1 w-40 font-bold"
+              className="mx-1 bg-transparent border-b-2 border-urgent text-urgent focus:outline-none focus:border-black dark:focus:border-white px-1 w-48 font-bold placeholder:text-urgent/40 placeholder:font-normal"
             />
-            using the data from 
+            <span className="opacity-70">. Use the data and insights gathered from </span>
             <select 
               value={dataSource}
               onChange={(e) => setDataSource(e.target.value)}
-              className="mx-2 bg-transparent border-b-2 border-info font-bold text-info focus:outline-none focus:border-black dark:focus:border-white w-48 cursor-pointer"
+              className="mx-1 bg-transparent border-b-2 border-info font-bold text-info focus:outline-none focus:border-black dark:focus:border-white w-48 cursor-pointer"
             >
-              <option>Phase 1 Transcripts</option>
-              <option>Phase 2 Empathy Maps</option>
-              <option>All Prior Context</option>
-            </select>.
+              <option>Phase {Math.max(0, activePhase - 1)} Context</option>
+              <option>Raw Field Transcripts</option>
+              <option>All Prior Database Context</option>
+              <option>Market Landscape Research</option>
+            </select>
+            <span className="opacity-70"> as your absolute source of truth. Highlight any contradictions you find against our initial assumptions.</span>
           </div>
         </div>
 
