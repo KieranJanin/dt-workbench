@@ -1,1 +1,9 @@
 node_modules
+secrets/
+test-infra.js
+tmp_find_strings.js
+tmp_inject.js
+*.json
+!package.json
+!tsconfig.json
+!package-lock.json
