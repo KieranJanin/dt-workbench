@@ -1,0 +1,4 @@
+﻿../../packages/ui/components/DashboardOverview.tsx(102,72): error TS2345: Argument of type 'KeyboardEvent<HTMLInputElement>' is not assignable to parameter of type 'MouseEvent<Element, MouseEvent>'.
+  Type 'KeyboardEvent<HTMLInputElement>' is missing the following properties from type 'MouseEvent<Element, MouseEvent>': button, buttons, clientX, clientY, and 7 more.
+../../packages/ui/components/DashboardOverview.tsx(188,74): error TS2345: Argument of type 'KeyboardEvent<HTMLInputElement>' is not assignable to parameter of type 'MouseEvent<Element, MouseEvent>'.
+  Type 'KeyboardEvent<HTMLInputElement>' is missing the following properties from type 'MouseEvent<Element, MouseEvent>': button, buttons, clientX, clientY, and 7 more.

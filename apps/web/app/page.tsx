@@ -2,7 +2,6 @@ import { Breadcrumb } from "@repo/ui/components/Breadcrumb";
 import { LeftSidebar } from "@repo/ui/components/LeftSidebar";
 import { RightSidebar } from "@repo/ui/components/RightSidebar";
 import { MainViewport } from "@repo/ui/components/MainViewport";
-import { PromptOverlay } from "@repo/ui/components/PromptOverlay";
 import { Toast } from "@repo/ui/components/Toast";
 
 export default function Home() {
@@ -17,7 +16,6 @@ export default function Home() {
 
       {/* Global Overlays & Nav */}
       <Breadcrumb />
-      <PromptOverlay />
       <Toast />
     </div>
   );
