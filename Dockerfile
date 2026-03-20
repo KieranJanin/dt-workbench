@@ -39,7 +39,7 @@ FROM base AS runner
 WORKDIR /app
 
 # Don't run production as root
-RUN addgroup --system --nodeuser && adduser --system --nodeuser -G nodeuser
+RUN addgroup -S nodeuser && adduser -S nodeuser -G nodeuser
 
 USER nodeuser
 
