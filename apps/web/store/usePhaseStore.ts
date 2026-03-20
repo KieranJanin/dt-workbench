@@ -24,7 +24,6 @@ interface SettingsState {
   neo4jUri: string;
   gdocsUrl: string;
   gcalendarUrl: string;
-  gcalendarUrl: string;
   gmailUrl: string;
   teamMembers: string;
 }
