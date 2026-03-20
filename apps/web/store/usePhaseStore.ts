@@ -40,6 +40,7 @@ export interface Artifact {
   toolName: string;
   title: string;
   customTitle?: string;
+  data: any;
   updatedAt: number;
   createdAt: number;
   isArchived: boolean;
@@ -88,6 +89,7 @@ interface PhaseState {
   artifacts: Artifact[];
   activeArtifactId: string | null;
   setActiveArtifactId: (id: string | null) => void;
+  saveArtifact: (phase: number, toolName: string, title: string, data: any, existingId?: string) => string;
   deleteArtifact: (id: string) => void;
   toggleArchiveArtifact: (id: string) => void;
   togglePinArtifact: (id: string) => void;
@@ -198,7 +200,7 @@ export const usePhaseStore = create<PhaseState>()(
       artifacts: [],
       activeArtifactId: null,
       setActiveArtifactId: (id) => set({ activeArtifactId: id }),
-      saveArtifact: (phase, toolName, title, data, existingId) => {
+      saveArtifact: (phase: number, toolName: string, title: string, data: any, existingId?: string) => {
         const id = existingId || uuidv4();
         const now = Date.now();
         set((state) => {
@@ -219,6 +221,7 @@ export const usePhaseStore = create<PhaseState>()(
               id,
               phase,
               toolName,
+              title,
               data,
               createdAt: now,
               updatedAt: now,
