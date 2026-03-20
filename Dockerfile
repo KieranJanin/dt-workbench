@@ -52,9 +52,9 @@ COPY --from=installer --chown=nodeuser:nodeuser /app/apps/web/.next/standalone .
 COPY --from=installer --chown=nodeuser:nodeuser /app/apps/web/.next/static ./apps/web/.next/static
 COPY --from=installer --chown=nodeuser:nodeuser /app/apps/web/public ./apps/web/public
 
-EXPOSE 3000
+EXPOSE 8080
 
-ENV PORT 3000
+ENV PORT 8080
 ENV HOSTNAME "0.0.0.0"
 
 # server.js is created by next build from the standalone output
