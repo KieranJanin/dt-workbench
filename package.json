@@ -12,7 +12,8 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev:web": "npm run dev --workspace=apps/web",
-    "deploy:web": "gcloud run deploy dt-workbench-web --source apps/web --region europe-west9 --allow-unauthenticated"
+    "deploy:web": "echo 'Deploying via GitHub CD. Check Cloud Build in GCP Console: https://console.cloud.google.com/cloud-build/builds'",
+    "deploy:web:local": "gcloud run deploy dt-workbench-web --source . --region europe-west9 --allow-unauthenticated"
   },
   "devDependencies": {
     "turbo": "^2.0.0",
